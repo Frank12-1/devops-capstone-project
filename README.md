@@ -1,4 +1,7 @@
 # devops-capstone-project
+
+![Build Status](https://github.com/YOUR_GITHUB_USERNAME/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)
+
 # This is the final project for the IBM DevOps and Software Engineering in Coursera.
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
