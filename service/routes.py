@@ -2,6 +2,7 @@
 Account Service
 This microservice handles the lifecycle of Accounts
 """
+# pylint: disable=unused-import
 from flask import jsonify, request, make_response, abort, url_for
 from service.models import Account
 from service.common import status  # HTTP Status Codes
@@ -15,6 +16,7 @@ def health():
     """Health Status"""
     return jsonify(dict(status="OK")), status.HTTP_200_OK
 
+
 ############################################################
 # GET INDEX
 ############################################################
@@ -22,9 +24,13 @@ def health():
 def index():
     """Root URL response"""
     return (
-        jsonify(name="Account REST API Service", version="1.0"),
+        jsonify(
+            name="Account REST API Service",
+            version="1.0",
+        ),
         status.HTTP_200_OK,
     )
+
 
 ############################################################
 # CREATE A NEW ACCOUNT
@@ -43,35 +49,38 @@ def create_accounts():
         jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
     )
 
+
 ############################################################
 # LIST ALL ACCOUNTS
 ############################################################
 @app.route("/accounts", methods=["GET"])
 def list_accounts():
-    """It should List all Accounts"""
+    """Lists all Accounts"""
     app.logger.info("Request to list Accounts")
     accounts = Account.all()
     account_list = [account.serialize() for account in accounts]
     return jsonify(account_list), status.HTTP_200_OK
+
 
 ############################################################
 # READ AN ACCOUNT
 ############################################################
 @app.route("/accounts/<int:account_id>", methods=["GET"])
 def get_accounts(account_id):
-    """It should Read a single Account"""
+    """Reads a single Account"""
     app.logger.info("Request to read an Account with id: %s", account_id)
     account = Account.find(account_id)
     if not account:
         abort(status.HTTP_404_NOT_FOUND, f"Account with id [{account_id}] could not be found.")
     return jsonify(account.serialize()), status.HTTP_200_OK
 
+
 ############################################################
 # UPDATE AN EXISTING ACCOUNT
 ############################################################
 @app.route("/accounts/<int:account_id>", methods=["PUT"])
 def update_accounts(account_id):
-    """It should Update an existing Account"""
+    """Updates an existing Account"""
     app.logger.info("Request to update an Account with id: %s", account_id)
     account = Account.find(account_id)
     if not account:
@@ -80,20 +89,22 @@ def update_accounts(account_id):
     account.update()
     return jsonify(account.serialize()), status.HTTP_200_OK
 
+
 ############################################################
 # DELETE AN ACCOUNT
 ############################################################
 @app.route("/accounts/<int:account_id>", methods=["DELETE"])
 def delete_accounts(account_id):
-    """It should Delete an Account"""
+    """Deletes an Account"""
     app.logger.info("Request to delete an Account with id: %s", account_id)
     account = Account.find(account_id)
     if account:
         account.delete()
     return "", status.HTTP_204_NO_CONTENT
 
+
 ############################################################
-# UTILITY FUNCTIONS
+#  U T I L I T Y   F U N C T I O N S
 ############################################################
 def check_content_type(media_type):
     """Checks that the media type is correct"""
@@ -101,4 +112,7 @@ def check_content_type(media_type):
     if content_type and content_type == media_type:
         return
     app.logger.error("Invalid Content-Type: %s", content_type)
-    abort(status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, f"Content-Type must be {media_type}")
+    abort(
+        status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
+        f"Content-Type must be {media_type}",
+    )
