@@ -1,0 +1,43 @@
+1	apiVersion: apps/v1
+     2	kind: Deployment
+     3	metadata:
+     4	  creationTimestamp: null
+     5	  labels:
+     6	    app: accounts
+     7	  name: accounts
+     8	spec:
+     9	  replicas: 3
+    10	  selector:
+    11	    matchLabels:
+    12	      app: accounts
+    13	  strategy: {}
+    14	  template:
+    15	    metadata:
+    16	      creationTimestamp: null
+    17	      labels:
+    18	        app: accounts
+    19	    spec:
+    20	      containers:
+    21	      - image: us.icr.io/sn-labs-franklin12in/accounts:1
+    22	        name: accounts
+    23	        resources: {}
+    24	        env:
+    25	          - name: DATABASE_HOST
+    26	            value: postgresql
+    27	          - name: DATABASE_NAME
+    28	            valueFrom:
+    29	              secretKeyRef:
+    30	                name: postgresql
+    31	                key: database-name
+    32	          - name: DATABASE_PASSWORD
+    33	            valueFrom:
+    34	              secretKeyRef:
+    35	                name: postgresql
+    36	                key: database-password
+    37	          - name: DATABASE_USER
+    38	            valueFrom:
+    39	              secretKeyRef:
+    40	                name: postgresql
+    41	                key: database-user
+    42	          - name: DATABASE_URI
+    43	            value: "postgresql://$(DATABASE_USER):$(DATABASE_PASSWORD)@$(DATABASE_HOST):5432/$(DATABASE_NAME)"
