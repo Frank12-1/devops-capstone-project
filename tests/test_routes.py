@@ -1,18 +1,13 @@
 """
 Account API Service Test Suite
 """
-"""
-Account API Service Test Suite
-"""
 import os
 import logging
 from unittest import TestCase
-from tests.factories import AccountFactory
+from service import app, talisman
 from service.common import status  # HTTP Status Codes
 from service.models import db, Account, init_db
-from service import app, talisman  
-
-
+from tests.factories import AccountFactory
 
 DATABASE_URI = os.getenv(
     "DATABASE_URI", "sqlite:///test.db"
@@ -168,4 +163,3 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Check for the CORS header
         self.assertEqual(response.headers.get('Access-Control-Allow-Origin'), '*')
-        
