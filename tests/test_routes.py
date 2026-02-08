@@ -1,22 +1,26 @@
 """
 Account API Service Test Suite
 """
+"""
+Account API Service Test Suite
+"""
 import os
 import logging
 from unittest import TestCase
 from tests.factories import AccountFactory
 from service.common import status  # HTTP Status Codes
 from service.models import db, Account, init_db
-from service.routes import app
-from service import app, talisman  # Update import to include talisman
-from flask_cors import CORS
+from service import app, talisman  
+
+
 
 DATABASE_URI = os.getenv(
-    "DATABASE_URI", "postgresql://postgres:postgres@localhost:5432/postgres"
+    "DATABASE_URI", "sqlite:///test.db"
 )
 
 BASE_URL = "/accounts"
 HTTPS_ENVIRON = {'wsgi.url_scheme': 'https'}
+
 
 class TestAccountService(TestCase):
     """Account Service Tests"""
@@ -164,3 +168,4 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Check for the CORS header
         self.assertEqual(response.headers.get('Access-Control-Allow-Origin'), '*')
+        
