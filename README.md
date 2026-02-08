@@ -1,6 +1,6 @@
 # devops-capstone-project
 
-![Build Status](https://github.com/YOUR_GITHUB_USERNAME/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)
+[![CI Build](https://github.com/Frank12-1/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)](https://github.com/Frank12-1/devops-capstone-project/actions/workflows/ci-build.yaml)
 
 # This is the final project for the IBM DevOps and Software Engineering in Coursera.
 
