@@ -57,5 +57,8 @@ spec:
           workspace: pipeline-workspace
       taskRef:
         name: nose
+      params:
+        - name: args
+          value: "-v --with-spec --spec-color"
       runAfter:
-        - clone
+        - lint
